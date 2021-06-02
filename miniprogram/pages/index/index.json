@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "user": "/pages/user/home/home",
+    "main": "/pages/main/home/home"
+  }
+}

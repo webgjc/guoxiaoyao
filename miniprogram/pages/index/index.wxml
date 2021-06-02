@@ -1,0 +1,18 @@
+<!--miniprogram/pages/index/index.wxml-->
+<main wx:if="{{PageCur=='main'}}"></main>
+<user id="user" wx:if="{{PageCur=='user'}}"></user>
+
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action" bindtap="NavChange" data-cur="main">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/zhuye-icon{{PageCur=='main'?'-select':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='main'?'text-green':'text-black'}}" >主页</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="user">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/my-icon{{PageCur=='user'?'-select':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='user'?'text-green':'text-black'}}" >我的</view>
+  </view>
+</view>

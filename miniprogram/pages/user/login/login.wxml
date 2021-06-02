@@ -1,0 +1,19 @@
+<!--miniprogram/pages/my/login.wxml-->
+<view class="page">
+  <button type="default" plain="true" style="width:80%" bindtap="syncInfo">点击同步微信个人信息</button>
+  <view class="page__bd">
+    <mp-form id="form">
+      <mp-cells title=""> 
+        <mp-cell prop="phone" title="手机号" ext-class="">
+          <input bindinput="formInputChange" data-field="phone" class="weui-input" placeholder="请输入手机"/>
+        </mp-cell>
+        <mp-cell prop="phoneBak" title="确认手机号" ext-class="">
+          <input bindinput="formInputChange" data-field="phoneBak" class="weui-input" placeholder="请再次输入手机号"/>
+        </mp-cell>
+      </mp-cells>
+    </mp-form>
+    <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
+    </view>
+  </view>
+</view>
