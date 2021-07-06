@@ -1,0 +1,80 @@
+<scroll-view scroll-y class="scrollPage">
+  <cu-custom bgColor="bg-gradual-green" isCustom="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">商品管理</view>
+  </cu-custom>
+
+  <form>
+    <view class="cu-form-group margin-top">
+      <view class="title">商品名</view>
+      <input placeholder="商品名" bindinput="inputChange" data-field="name" value="{{skuInfo._id?skuInfo.name:''}}"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">商品价格</view>
+      <input type="number" placeholder="100" bindinput="inputChange" data-field="price" value="{{skuInfo._id?skuInfo.price:0}}"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">主页轮播</view>
+      <switch class="green sm" bindchange="inputChange" data-field="swiper" checked="{{skuInfo._id?skuInfo.swiper:false}}"></switch>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">主页推荐</view>
+      <switch class="blue sm" bindchange="inputChange" data-field="recommend" checked="{{skuInfo._id?skuInfo.recommend:false}}"></switch>
+    </view>
+    <view class="cu-form-group align-start">
+      <view class="title">商品备注</view>
+      <textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="textareaBInput" placeholder="商品的备注" bindinput="inputChange" data-field="remark" value="{{skuInfo._id?skuInfo.remark:''}}"></textarea>
+    </view>
+
+    <view class="cu-bar bg-white margin-top">
+      <view class="action">
+        轮播图片上传
+      </view>
+      <view class="action">
+        {{imgList.length}}/6
+      </view>
+    </view>
+    <view class="cu-form-group">
+      <view class="grid col-4 grid-square flex-sub">
+        <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-image="imgList" data-url="{{imgList[index]}}">
+          <image src='{{imgList[index]}}'></image>
+          <view class="cu-tag bg-red" catchtap="DelImg" data-image="imgList" data-index="{{index}}">
+            <text class="cuIcon-close"></text>
+          </view>
+        </view>
+        <view class="solids" bindtap="ChooseImage" data-image="imgList" wx:if="{{imgList.length<6}}">
+          <text class="cuIcon-cameraadd"></text>
+        </view>
+      </view>
+    </view> 
+
+
+    <view class="cu-bar bg-white margin-top">
+      <view class="action">
+        缩略图片上传
+      </view>
+      <view class="action">
+        {{coverImgList.length}}/1
+      </view>
+    </view>
+    <view class="cu-form-group">
+      <view class="grid col-4 grid-square flex-sub">
+        <view class="bg-img" wx:for="{{coverImgList}}" wx:key="{{index}}" bindtap="ViewImage" data-image="coverImgList" data-url="{{coverImgList[index]}}">
+          <image src='{{coverImgList[index]}}' mode='aspectFill'></image>
+          <view class="cu-tag bg-red" catchtap="DelImg" data-image="coverImgList" data-index="{{index}}">
+            <text class="cuIcon-close"></text>
+          </view>
+        </view>
+        <view class="solids" bindtap="ChooseImage" data-image="coverImgList" wx:if="{{coverImgList.length<1}}">
+          <text class="cuIcon-cameraadd"></text>
+        </view>
+      </view>
+    </view> 
+
+    <view class="padding flex flex-direction">
+      <button class="cu-btn bg-blue margin-tb-sm lg" bindtap="submit">提交</button>      
+      <button class="cu-btn bg-blue margin-tb-sm lg" bindtap="toSkuDetail">编辑商品详情</button>
+      <button class="cu-btn bg-blue margin-tb-sm lg" bindtap="deleteSku">删除商品</button>
+    </view>
+  </form>
+</scroll-view>

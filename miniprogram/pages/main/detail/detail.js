@@ -1,61 +1,46 @@
-// miniprogram/pages/index/index.js
+// miniprogram/pages/main/detail/detail.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    PageCur: 'main'
-  },
-
-  NavChange(e) {
-    this.setData({
-      PageCur: e.currentTarget.dataset.cur
-    })
+    skuInfo: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if(options.cur) {
-      this.setData({
-        PageCur: options.cur
-      })
-    }
+    let that = this
+    console.log(options)
+    wx.cloud.callFunction({
+      name: "sku",
+      data: {
+        func: "getSkuAll",
+        skuId: options.sku
+      },
+      success: function(res) {
+        console.log(res)
+        that.setData({
+          skuInfo: res.result
+        })
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    // wx.cloud.callFunction({
-    //   name: "user",
-    //   data: {
-    //     func: "checkInfoLogin"
-    //   },
-    //   success: (res) => {
-    //     if(!res.result) {
-    //       wx.showToast({
-    //         title: '登录检查失败',
-    //       }).then(() => {
-    //         setTimeout(() => {
-    //           wx.navigateTo({
-    //             url: '/pages/user/login/login',
-    //           })
-    //         }, 800)
-    //       })
-    //     }
-    //   }
-    // })
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let userComp = this.selectComponent("#user");
-    console.log(userComp)
+
   },
 
   /**
@@ -90,6 +75,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    console.log(this.data.skuInfo.picList[0])
+    return {
+      title: "【果小媱】" + this.data.skuInfo.name,
+      path: "/pages/main/detail/detail?sku=" + this.data.skuInfo._id,
+      imageUrl: this.data.skuInfo.picList[0]
+    }
   }
 })

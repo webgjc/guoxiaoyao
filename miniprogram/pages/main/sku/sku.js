@@ -1,61 +1,52 @@
-// miniprogram/pages/index/index.js
+// miniprogram/pages/main/sku/sku.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    PageCur: 'main'
-  },
-
-  NavChange(e) {
-    this.setData({
-      PageCur: e.currentTarget.dataset.cur
-    })
+    skuList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if(options.cur) {
-      this.setData({
-        PageCur: options.cur
-      })
-    }
+    this.search(options.search ? options.search : "")
+  },
+
+  search: function(v) {
+    let that = this
+    wx.cloud.callFunction({
+      name: "sku",
+      data: {
+        func: "searchSku",
+        search: v
+      }, 
+      success: function(res) {
+        that.setData({
+          skuList: res.result.data
+        })
+      }
+    })
+  },
+
+  onSearch: function(e) {
+    this.search(e.detail.value)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    // wx.cloud.callFunction({
-    //   name: "user",
-    //   data: {
-    //     func: "checkInfoLogin"
-    //   },
-    //   success: (res) => {
-    //     if(!res.result) {
-    //       wx.showToast({
-    //         title: '登录检查失败',
-    //       }).then(() => {
-    //         setTimeout(() => {
-    //           wx.navigateTo({
-    //             url: '/pages/user/login/login',
-    //           })
-    //         }, 800)
-    //       })
-    //     }
-    //   }
-    // })
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let userComp = this.selectComponent("#user");
-    console.log(userComp)
+
   },
 
   /**

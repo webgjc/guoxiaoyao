@@ -1,0 +1,31 @@
+<scroll-view scroll-y class="scrollPage">
+  <cu-custom bgColor="bg-gradual-orange" isCustom="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">果小媱</view>
+  </cu-custom>
+
+  <view class="cu-bar bg-white search">
+    <view class="search-form round">
+      <text class="cuIcon-search"></text>
+      <input type="text" placeholder="搜索" confirm-type="search" bindconfirm="search"></input>
+    </view>
+  </view>
+
+  <view class="bg-white" style="padding:0 30rpx;padding-bottom: 20rpx;">
+      <view class='nav-list canui-flex-car'>
+          <navigator open-type="navigate" hover-class='none' url="/pages/main/detail/detail?sku={{item._id}}" class="nav-li canui-yx-url" wx:for="{{skuList}}" wx:key>
+              <view class="flex-sub cu-card case shadow-warp bg-white">
+                  <view class="cu-item shadow">
+                      <view class='image'>
+                          <image src="{{item.coverImage}}" mode="widthFix"></image>
+                      </view>
+                      <view class="grid col-1 text-black">
+                        <view class="padding-top-sm padding-left-sm padding-right-sm text-overflow">{{item.name}}</view>
+                        <view class="padding-left-sm padding-right-sm padding-bottom-sm padding-top-xs text-lg">￥ {{item.price}}</view>
+                      </view>
+                  </view>
+              </view>
+          </navigator>
+      </view>
+  </view>
+</scroll-view>

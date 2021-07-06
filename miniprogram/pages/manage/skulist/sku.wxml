@@ -1,0 +1,24 @@
+<scroll-view scroll-y class="scrollPage">
+  <cu-custom bgColor="bg-gradual-green" isCustom="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">商品管理</view>
+  </cu-custom>
+
+  <view class="padding flex flex-direction">
+    <button class="cu-btn bg-cyan margin-tb-sm lg" bindtap="addSku">新增商品</button>
+  </view>
+
+  <view class="cu-list menu-avatar">
+    <view class="solids-bottom cu-item" wx:for="{{skuList}}" wx:key bindtap="editSku" data-sku="{{item._id}}">
+      <image class="cu-avatar radius lg" src="{{item.coverImage}}"></image>
+      <view class="content">
+        <view class="text-black text-df">{{item.name}}</view>
+        <view class="text-red">￥ {{item.price}}</view>
+      </view>
+      <!-- <view class="action">
+        <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="menuModal">编辑</button>
+        <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="menuModal">编辑</button>
+      </view> -->
+    </view>
+  </view>
+</scroll-view>

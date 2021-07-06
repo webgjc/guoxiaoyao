@@ -1,3 +1,4 @@
+/* miniprogram/pages/main/sku/sku.wxss */
 .nav-list,.nav-li{
   padding: 0px;
   z-index: 0;

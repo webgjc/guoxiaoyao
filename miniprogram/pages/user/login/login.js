@@ -6,14 +6,26 @@ Page({
    */
   data: {
     phone: "",
-    phoneBak: ""
+    phoneBak: "",
+    syncUserChecked: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if(options.init == "1") {
+      this.initUser();
+    }
+  },
 
+  checkedEvent: function(e) {
+    this.setData({
+      syncUserChecked: !this.data.syncUserChecked
+    })
+    if(this.data.syncUserChecked) {
+      this.syncInfo();
+    }
   },
 
   syncInfo: function() {   
@@ -31,7 +43,12 @@ Page({
         })
       },
       fail: (res) => {
-        console.log("123")
+        wx.showToast({
+          title: "同步信息失败",
+        })
+        this.setData({
+          syncUserChecked: false
+        })
       }
     })
   },
@@ -45,7 +62,7 @@ Page({
   submitForm: function() {
     if(this.data.phone.length != 11 || !this.data.phone.startsWith("1")) {
       wx.showToast({
-        title: '手机格式检查失败',
+        title: '格式检查失败',
       })
       return;
     }
@@ -65,60 +82,23 @@ Page({
         wx.showToast({
           title: '提交成功',
         }).then(() => {
-          wx.switchTab({
-            url: '/pages/user/index',
+          wx.navigateTo({
+            url: '/pages/index/index?cur=user',
           })
         })
       }
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  initUser: function() {
+    wx.cloud.callFunction({
+      name: "user",
+      data: {
+        func: "checkInfoLogin"
+      },
+      success: (res) => {
+        console.log(res)
+      }
+    })
   }
 })

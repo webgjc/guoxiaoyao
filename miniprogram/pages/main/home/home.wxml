@@ -1,2 +1,49 @@
-<!--pages/main/home/home.wxml-->
-<text>pages/main/home/home.wxml</text>
+<scroll-view scroll-y class="scrollPage">
+  <cu-custom bgColor="bg-gradual-orange">
+    <view slot="content">果小媱</view>
+  </cu-custom>
+
+  <view class="cu-bar bg-white search">
+    <view class="search-form round">
+      <text class="cuIcon-search"></text>
+      <input type="text" placeholder="搜索" confirm-type="search" bindconfirm="searchSku"></input>
+    </view>
+  </view>
+
+  <view>
+    <swiper class="screen-swiper 'round-dot'" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+      <swiper-item wx:for="{{swiperList}}" wx:key data-sku="{{item._id}}" bindtap="toDetail">
+          <image src="{{item.picList[0]}}" mode="scaleToFill"></image>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <view class="cu-bar bg-white margin-top solid-bottom">
+    <view class='action'>
+        <text class='icon-title text-green'></text>
+        <text>推荐商品</text>
+    </view>
+    <navigator hover-class='none' url="/pages/main/sku/sku">
+        <view class='action' style="font-size: 27rpx;"> 更多 <view class='icon-right'></view> </view>
+    </navigator>
+  </view>
+  <view class="bg-white" style="padding:0 30rpx;padding-bottom: 20rpx;">
+      <view class='nav-list canui-flex-car'>
+          <navigator open-type="navigate" hover-class='none' url="/pages/main/detail/detail?sku={{item._id}}" class="nav-li canui-yx-url" wx:for="{{recommendList}}" wx:key>
+              <view class="flex-sub cu-card case shadow-warp bg-white">
+                  <view class="cu-item shadow">
+                      <view class='image'>
+                          <image src="{{item.coverImage}}" mode="widthFix"></image>
+                      </view>
+                      <view class="grid col-1 text-black">
+                        <view class="padding-top-sm padding-left-sm padding-right-sm padding-bottom-xs text-overflow ">{{item.name}}</view>
+                        <view class="padding-left-sm padding-right-sm padding-bottom-sm text-lg">￥ {{item.price}}</view>
+                      </view>
+                  </view>
+              </view>
+          </navigator>
+      </view>
+  </view>
+
+  <view class="cu-tabbar-height"></view>
+</scroll-view>

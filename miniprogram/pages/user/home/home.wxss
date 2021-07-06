@@ -1,1 +1,6 @@
-/* pages/user/home/home.wxss */
+.avatar {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+
+}

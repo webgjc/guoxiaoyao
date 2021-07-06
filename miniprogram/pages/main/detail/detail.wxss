@@ -1,0 +1,4 @@
+/* miniprogram/pages/main/detail/detail.wxss */
+.radius {
+  border-radius: 8px
+}

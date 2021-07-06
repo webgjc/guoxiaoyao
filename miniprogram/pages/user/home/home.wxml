@@ -1,2 +1,81 @@
-<!--pages/user/home/home.wxml-->
-<text>nickname: {{userInfo.nickName}}</text>
+<scroll-view scroll-y class="scrollPage">
+  <cu-custom bgColor="bg-gradual-blue">
+    <view slot="content">个人中心</view>
+  </cu-custom>
+  <navigator class="content" url="/pages/user/login/login?init={{userInfo.nickName == undefined ? 1 : 0}}" hover-class="none">
+    <view class="cu-bar margin-right-sm">
+      <view class="flex p-xs margin-xs mb-sm justify-start">
+        <view class="flex padding-sm margin-xs radius align-center">
+          <view class="cu-avatar xl round" style="background-image:url({{userInfo.avatarUrl}});">
+            <view class="cu-tag badge {{userInfo.gender!=1?'cuIcon-female bg-pink':'cuIcon-male bg-blue'}}"></view>
+          </view>
+        </view>
+        <view class="padding-sm margin-xs radius">
+          <view class="grid col-1 text-left text-lg">
+            <view class="padding-bottom-sm padding-top-sm">{{userInfo.nickName != undefined ? "Hi, " + userInfo.nickName : "请点击绑定个人信息"}}</view>
+            <view class="padding-bottom-sm padding-top-xs">{{userInfo.dealPhone}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="action">
+        <text class="cuIcon-right lg text-gray"></text>
+      </view>
+    </view>
+  </navigator>
+  
+  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+    <!-- <view class="cu-item arrow">
+      <navigator class="content" url="/pages/about/log/log" hover-class="none">
+        <text class="cuIcon-colorlens text-orange"></text>
+        <text class="text-grey">主页轮播管理</text>
+      </navigator>
+    </view> -->
+    <view class="cu-item arrow">
+      <navigator class="content" url="/pages/manage/skulist/sku" hover-class="none">
+        <text class="cuIcon-text text-cyan"></text>
+        <text class="text-grey">商品管理</text>
+      </navigator>
+    </view>
+    <view class="cu-item arrow">
+      <navigator class="content" url="/pages/about/log/log" hover-class="none">
+        <text class="cuIcon-my text-blue"></text>
+        <text class="text-grey">人员管理</text>
+      </navigator>
+    </view>
+  </view>
+
+  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+    <view class="cu-item arrow">
+      <navigator class="content" url="/pages/about/log/log" hover-class="none">
+        <text class="cuIcon-formfill text-green"></text>
+        <text class="text-grey">我的订单</text>
+      </navigator>
+    </view>
+    <view class="cu-item arrow">
+      <navigator class="content" url="/pages/about/log/log" hover-class="none">
+        <text class="cuIcon-new text-green"></text>
+        <text class="text-grey">我的评论</text>
+      </navigator>
+    </view>
+    <view class="cu-item arrow">
+      <navigator class="content" url="/pages/about/test/list"
+      hover-class="none">
+        <text class="cuIcon-writefill text-cyan"></text>
+        <text class="text-grey">意见反馈</text>
+      </navigator>
+    </view>
+    <view class="cu-item arrow">
+      <navigator class="content" url="/pages/about/test/list" hover-class="none">
+        <text class="cuIcon-phone text-orange"></text>
+        <text class="text-grey">联系客服</text>
+      </navigator>
+    </view>
+    <view class="cu-item arrow">
+      <view class="content" bindtap="showQrcode">
+        <text class="cuIcon-appreciatefill text-red"></text>
+        <text class="text-grey">赞赏支持</text>
+      </view>
+    </view>
+  </view>
+  <view class="cu-tabbar-height"></view>
+</scroll-view>

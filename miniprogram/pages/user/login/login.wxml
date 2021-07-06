@@ -1,19 +1,22 @@
-<!--miniprogram/pages/my/login.wxml-->
-<view class="page">
-  <button type="default" plain="true" style="width:80%" bindtap="syncInfo">点击同步微信个人信息</button>
-  <view class="page__bd">
-    <mp-form id="form">
-      <mp-cells title=""> 
-        <mp-cell prop="phone" title="手机号" ext-class="">
-          <input bindinput="formInputChange" data-field="phone" class="weui-input" placeholder="请输入手机"/>
-        </mp-cell>
-        <mp-cell prop="phoneBak" title="确认手机号" ext-class="">
-          <input bindinput="formInputChange" data-field="phoneBak" class="weui-input" placeholder="请再次输入手机号"/>
-        </mp-cell>
-      </mp-cells>
-    </mp-form>
-    <view class="weui-btn-area">
-        <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
-    </view>
+<cu-custom bgColor="bg-gradual-blue" isCustom="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">绑定个人信息</view>
+</cu-custom>
+<form>
+  <view class="cu-form-group margin-top">
+    <view class="title">同步微信个人信息</view>
+    <checkbox bindtap="checkedEvent" checked="{{syncUserChecked}}"></checkbox>
   </view>
+  <view class="cu-form-group">
+		<view class="title">手机号</view>
+		<input placeholder="请输入手机号" bindinput="formInputChange" data-field="phone"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">手机号</view>
+		<input placeholder="请再次请输入手机号" bindinput="formInputChange" data-field="phoneBak"></input>
+	</view>
+</form>
+<view class="padding flex flex-direction">
+  <button class="cu-btn line-orange lg" bindtap="submitForm">
+  提交</button>
 </view>

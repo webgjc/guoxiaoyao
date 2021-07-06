@@ -1,0 +1,32 @@
+<scroll-view scroll-y class="scrollPage">
+  <cu-custom bgColor="bg-gradual-orange" isCustom="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">果小媱</view>
+  </cu-custom>
+
+  <swiper class="screen-swiper 'round-dot'" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+    <swiper-item wx:for="{{skuInfo.picList}}" wx:key bindtap="toDetail">
+        <image src="{{item}}"></image>
+    </swiper-item>
+  </swiper>
+
+  <view class="bg-white margin-xs padding-sm radius">
+    <view class="grid col-1">
+      <view class="text-xxl text-red padding-xs">￥ {{skuInfo.price}}</view>
+      <view class="text-xl text-black padding-xs">{{skuInfo.name}}</view>
+      <view class="text-lg text-gray padding-left-xs padding-right-xs">{{skuInfo.remark}}</view>
+    </view>
+  </view>
+
+  <!-- <view class="bg-white margin-xs padding-sm radius">
+    展示评论
+  </view> -->
+
+  <view class="cu-bar bg-white margin-top solid-bottom">
+    <view class="action">商品详情</view>
+    <!-- <view class="action">编辑</view> -->
+  </view>
+  <view class="bg-white padding">
+    <rich-text nodes="{{skuInfo.detail.detail}}"></rich-text>
+  </view>
+</scroll-view>

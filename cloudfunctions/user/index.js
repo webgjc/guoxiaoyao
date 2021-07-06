@@ -2,10 +2,6 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 
-const wxContext = cloud.getWXContext()
-const db = cloud.database()
-const user = db.collection('user');
-
 Date.prototype.format = function(fmt) { 
   var o = { 
      "M+" : this.getMonth()+1,                 //月份 
@@ -27,7 +23,7 @@ Date.prototype.format = function(fmt) {
  return fmt; 
 }
 
-async function getUserInfo(e) {
+async function getUserInfo(e, user, wxContext) {
   let myinfo = await user.where({
     _openid: wxContext.OPENID
   }).get();
@@ -38,19 +34,18 @@ async function getUserInfo(e) {
   }
 }
 
-async function checkInfoLogin(e) {
+async function checkInfoLogin(e, user, wxContext) {
   let myinfo = await getUserInfo(e);
   let loginStatus = false;
   if(!myinfo) {
     await user.add({
       data: {
         _openid: wxContext.OPENID,
-        update_time: new Date().format("yyyy-MM-dd hh:mm:ss"),
-        create_time: new Date().format("yyyy-MM-dd hh:mm:ss")
+        updateTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+        createTime: new Date().format("yyyy-MM-dd hh:mm:ss")
       }
     })
   }else{
-    console.log(myinfo)
     if(myinfo.nickName && myinfo.phone) {
       loginStatus = true;
     }
@@ -58,8 +53,8 @@ async function checkInfoLogin(e) {
   return loginStatus;
 }
 
-async function updateUserInfo(e) {
-  e.update_time = new Date().format("yyyy-MM-dd hh:mm:ss")
+async function updateUserInfo(e, user, wxContext) {
+  e.updateTime = new Date().format("yyyy-MM-dd hh:mm:ss")
   return await user.where({
     _openid: wxContext.OPENID
   }).update({
@@ -73,11 +68,19 @@ async function updateUserInfo(e) {
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-
-  let func = event.func;
-
+  const wxContext = cloud.getWXContext()
+  const db = cloud.database()
+  const userDb = db.collection('user')
+  const func = event.func;
   delete event.func;
+  delete event.userInfo;
 
-  return eval(func + `(event)`)
+  if(func === "getUserInfo") {
+    return getUserInfo(event, userDb, wxContext)
+  }else if(func === "checkInfoLogin") {
+    return checkInfoLogin(event, userDb, wxContext)
+  }else if(func === "updateUserInfo") {
+    return updateUserInfo(event, userDb, wxContext)
+  }
 
 }

@@ -1,6 +1,7 @@
 <!--miniprogram/pages/index/index.wxml-->
 <main wx:if="{{PageCur=='main'}}"></main>
-<user id="user" wx:if="{{PageCur=='user'}}"></user>
+<user wx:if="{{PageCur=='user'}}"></user>
+<about wx:if="{{PageCur=='about'}}"></about>
 
 <view class="cu-bar tabbar bg-white shadow foot">
   <view class="action" bindtap="NavChange" data-cur="main">
